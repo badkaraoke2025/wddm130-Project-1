@@ -139,18 +139,13 @@ function validateForm()
     if (email.indexOf("@") == -1 || email.indexOf(".") == -1)
         errors += "<li>Email must contain '@' and '.'.</li>";
 
-    // Phone: must contain 10 digits (strip non-digits)
-    var digits = "";
-    for (var i = 0; i < phone.length; i++)
-    {
-        var ch = phone.charAt(i);
-        if (ch >= "0" && ch <= "9")
-            digits += ch;
-    }
-    if (digits.length != 10)
-        errors += "<li>Phone number must contain 10 digits.</li>";
+    // Phone: must contain 10 digits
+var rePhone = /^\(?(\d{3})\)?[\.\-\/\s]?(\d{3})[\.\-\/\s]?(\d{4})$/;
 
-    if (address == "")
+if (!rePhone.test(phone))
+    errors += "<li>Phone number must contain 10 digits.</li>";
+
+if (address == "")
         errors += "<li>Address is required.</li>";
 
     if (city == "")
