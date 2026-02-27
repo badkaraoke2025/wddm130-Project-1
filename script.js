@@ -16,17 +16,72 @@ var productPrices = [49.99, 12.99, 8.50, 14.99, 19.99, 16.00, 24.50, 39.99];
 
 // Product images (open-source photos from Unsplash - free to use)
 var productImages = [
-    "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=250&fit=crop",
-    "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=250&fit=crop",
-    "https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=400&h=250&fit=crop",
-    "https://images.unsplash.com/photo-1618410320928-25228d811631?w=400&h=250&fit=crop",
-    "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=250&fit=crop",
-    "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&h=250&fit=crop",
-    "https://images.unsplash.com/photo-1543198126-a8ad8e47fb22?w=400&h=250&fit=crop",
-    "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=250&fit=crop"
+    "images/product1.svg",
+    "images/product2.svg",
+    "images/product3.svg",
+    "images/product4.svg",
+    "images/product5.svg",
+    "images/product6.svg",
+    "images/product7.svg",
+    "images/product8.svg"
 ];
 
 var cartQty = [0,0,0,0,0,0,0,0];
+
+var currentOrder = [];
+
+function resetOrder()
+{
+    currentOrder = [];
+    for (var i = 0; i < productNames.length; i++)
+        currentOrder.push(i);
+}
+
+// Numeric sort helper (Week 6A style)
+function sortNumber(a, b)
+{
+    return a - b;
+}
+
+function applySort()
+{
+    var mode = document.getElementById("sortProducts").value;
+
+    resetOrder();
+
+    if (mode == "priceAsc")
+    {
+        currentOrder.sort(function(a, b){ return sortNumber(productPrices[a], productPrices[b]); });
+    }
+    else if (mode == "priceDesc")
+    {
+        currentOrder.sort(function(a, b){ return sortNumber(productPrices[b], productPrices[a]); });
+    }
+    else if (mode == "nameAsc")
+    {
+        currentOrder.sort(function(a, b){
+            var A = productNames[a].toLowerCase();
+            var B = productNames[b].toLowerCase();
+            if (A < B) return -1;
+            if (A > B) return 1;
+            return 0;
+        });
+    }
+    else if (mode == "nameDesc")
+    {
+        currentOrder.sort(function(a, b){
+            var A = productNames[a].toLowerCase();
+            var B = productNames[b].toLowerCase();
+            if (A < B) return 1;
+            if (A > B) return -1;
+            return 0;
+        });
+    }
+
+    buildProducts();
+    updateCart();
+}
+
 
 function formatMoney(num)
 {
@@ -37,14 +92,15 @@ function buildProducts()
 {
     var out = "";
 
-    for (var i = 0; i < productNames.length; i++)
+    for (var i = 0; i < currentOrder.length; i++)
     {
+        var j = currentOrder[i];
         out += "<div class='product'>";
-        out += "<img src='" + productImages[i] + "' alt='" + productNames[i] + "'>";
-        out += "<strong>" + productNames[i] + "</strong><br>";
-        out += "<span class='small'>Price: " + formatMoney(productPrices[i]) + "</span><br>";
-        out += "<label for='qty" + i + "'>Quantity</label>";
-        out += "<input type='number' id='qty" + i + "' min='0' value='0' onchange='updateCart();'>";
+        out += "<img src='" + productImages[j] + "' alt='" + productNames[j] + "'>";
+        out += "<strong>" + productNames[j] + "</strong><br>";
+        out += "<span class='small'>Price: " + formatMoney(productPrices[j]) + "</span><br>";
+        out += "<label for='qty" + j + "'>Quantity</label>";
+        out += "<input type='number' id='qty" + j + "' min='0' value='0' onchange='updateCart();'>";
         out += "</div>";
     }
 
@@ -145,7 +201,7 @@ var rePhone = /^\(?(\d{3})\)?[\.\-\/\s]?(\d{3})[\.\-\/\s]?(\d{4})$/;
 if (!rePhone.test(phone))
     errors += "<li>Phone number must contain 10 digits.</li>";
 
-if (address == "")
+    if (address == "")
         errors += "<li>Address is required.</li>";
 
     if (city == "")
@@ -248,6 +304,7 @@ function checkout()
 
 window.onload = function()
 {
+    resetOrder();
     buildProducts();
     updateCart();
 };

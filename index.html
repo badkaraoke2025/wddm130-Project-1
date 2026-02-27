@@ -3,17 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project 1 - Mini Online Store</title>
+    <title>Crazy Collin's CRAZY Discount Warehouse! (We're CRAZY for Value!)</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Mini Online Store</h1>
+    <h1>Crazy Collin's CRAZY Discount Warehouse! (We're CRAZY for Value!)</h1>
 
     <div id="messageArea"></div>
 
     <div class="layout">
         <div class="panel">
             <h2>Products</h2>
+            <div class="sortBar">
+                <label for="sortProducts">Sort:</label>
+                <select id="sortProducts" onchange="applySort();">
+                    <option value="default">Default</option>
+                    <option value="priceAsc">Price (low to high)</option>
+                    <option value="priceDesc">Price (high to low)</option>
+                    <option value="nameAsc">Name (A to Z)</option>
+                    <option value="nameDesc">Name (Z to A)</option>
+                </select>
+            </div>
             <div id="productsArea">Products load here...</div>
         </div>
 

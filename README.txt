@@ -16,3 +16,6 @@ Notes
 - Products are generated with JavaScript (not hard-coded into HTML).
 - Cart updates automatically when quantities change.
 - Checkout validates required fields and shows a receipt after success.
+
+
+Note: Product images are included locally in the /images folder (SVG placeholders).

@@ -101,3 +101,48 @@ th {
     display: block;
     margin-bottom: 8px;
 }
+
+
+.sortBar {
+    margin-bottom: 10px;
+}
+
+.sortBar label {
+    margin-right: 6px;
+}
+
+
+/* CRAZY THEME */
+
+body {
+    background: linear-gradient(45deg, hotpink, cyan, yellow, lime);
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.2em;
+    color: purple;
+    text-shadow: 3px 3px 0px yellow;
+}
+
+.panel {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 4px dashed red;
+}
+
+.product {
+    background-color: orange;
+    border: 3px solid blue;
+}
+
+button, input[type="submit"] {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    border: 2px solid black;
+}
+
+table {
+    background-color: white;
+}
